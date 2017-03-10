@@ -238,10 +238,12 @@ def compose[A, B, C](x: A, f: A => B, g: B => C): C =
 ```
 
 ```scala
-scala> compose[String, Int, Boolean]("foo", {x: String => x.length}, {len: Int => if(len == 4) true else false} )
+scala> compose[String, Int, Boolean]("foo", {x: String => x.length}, 
+                                            {len: Int => if(len == 4) true else false} )
 res9: Boolean = false
 
-scala> compose[String, Int, Boolean]("bipp", {x: String => x.length}, {len: Int => if(len == 4) true else false} )
+scala> compose[String, Int, Boolean]("bipp", {x: String => x.length}, 
+                                             {len: Int => if(len == 4) true else false} )
 res10: Boolean = true
 ```
 
