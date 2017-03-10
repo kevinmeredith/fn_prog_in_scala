@@ -31,6 +31,9 @@ source - FP in Scala, ch2
 
 #### Purity?
 
+* `abs` and `formatAbs` are pure
+* `main` is not
+
 * Recall from ch1's "Referential transparency and purity" note
 
 > An expression e is referentially transparent if, for all programs p,
@@ -45,9 +48,6 @@ factorial(3) = 3 * factorial(2)
              = 3 * 2 * 1
              = 6
 ```
-
-* `abs` and `formatAbs` are pure
-* `main` is not
 
 #### Comments
 
