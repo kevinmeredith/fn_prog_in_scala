@@ -193,7 +193,8 @@ def factorial(n: Int): Int = {
 
 // Exiting paste mode, now interpreting.
 
-<pastie>:15: error: could not optimize @tailrec annotated method factorial: it contains a recursive call not in tail position
+<pastie>:15: error: could not optimize @tailrec annotated method factorial: 
+                     it contains a recursive call not in tail position
           else       n * factorial(n-1)
                        ^
 ```  
