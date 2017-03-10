@@ -4,10 +4,10 @@
 
 ## Agenda
 
-* Basic Elements of Scala
-* Basic Techniques for FP
+* Basic Elements of Scala/FP
 * Higher-Ordered Functions (HOF) 
-* Loops with Tail Recursive Functions
+* Tail Recursive Functions
+* Following types to implementations
 
 ### Basic Elements of Scala 
 
@@ -67,7 +67,7 @@ factorial(3) = 3 * factorial(2)
 
 #### Writing `factorial` Functionally
 
-##### Impure Java Implementation
+##### Java Implementation
 
 ``` java
 public static int factorial(int x) {
@@ -117,6 +117,7 @@ res3: Int = 0
 * Let's switch to [BigInt](http://www.scala-lang.org/api/2.12.1/scala/math/BigInt.html)
 	* "backed by the Java BigInteger ... classes"
 	* Stored on heap
+  * Can demonstrate the StackOverflowError
 
 ```scala
 def factorial(n: Int): BigInt = {
@@ -164,8 +165,81 @@ factorial(3) = go(3, 1)
                6
 ```
 
-* StackOverflowError, you say?
+* StackOverflowError?
 
 ```
+scala> factorial(50000)
+res5: BigInt = 33473205095971448369154760940714864779127732238104548077301003219901680221443656416973812310719169308798480438190208299893616384743066693742630572845363784038325756282123359987268244078235972356040853854441373383753568565536371168327405166076155165921406156075461294201790567479665498629242220022541553510718159801615476451810616674970217996537474972541139338191638823500630307644256874857271394651081909874909643486268589229807870031031008962861154553979911612940652327396971497211031261142860733793509687837355811830609551728906603833592532851635961730885279811957399495299450306354442478492641028990069559634883529900557676550929175475920788044807622562415165130459046318068517406766360012329556454065724225175473428183121029195715593787423641117194513838593038006413132976312508...
+```
 
-```               
+* "A call is said to be in tail position if the caller does nothing other than 
+  return the value of the recursive call" (ch 2).
+* "If all recursive calls made by a function are in tail position, Scala automatically compiles
+  the recursion to iterative loops that don’t consume call stack frames for each
+  iteration." (ch 2)
+
+* `tailrec`
+
+```
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+@annotation.tailrec
+def factorial(n: Int): Int = {
+   if(n <= 0) 1
+   else       n * factorial(n-1)
+}
+
+// Exiting paste mode, now interpreting.
+
+<pastie>:15: error: could not optimize @tailrec annotated method factorial: it contains a recursive call not in tail position
+          else       n * factorial(n-1)
+                       ^
+```  
+
+### Polymorphic Functions
+
+* Monomorphic function - "functions that operate on only one type of data" (ch2)
+* Example: `def add2(x: Int): Int = x + 2`
+
+```scala
+def map[A, B](list: List[A], f: A => B): List[B] = {
+  @annotation.tailrec
+  def go(l: List[A], acc: List[B]): List[B] = l match {
+    case h :: t => go(t, f(h) :: acc)
+    case Nil    => acc
+  }
+  go(list, Nil).reverse
+}
+```
+* `A` and `B` are type parameters.
+* `f` is a HOF
+* Since it compiled with the annotation, it's tail recursive
+
+
+```
+scala> map[String, Int](List("foo", "hi"), {s: String => s.length })
+res6: List[Int] = List(3, 2)
+
+scala> map[String, Int](List("foo", "hi", "world!"), {s: String => s.length })
+res7: List[Int] = List(3, 2, 6)
+```
+
+### Following Types to Implementation
+
+* "Follow the types!"
+
+```scala
+def compose[A, B, C](x: A, f: A => B, g: B => C): C = 
+  g( f(x) )
+```
+
+```scala
+scala> compose[String, Int, Boolean]("foo", {x: String => x.length}, {len: Int => if(len == 4) true else false} )
+res9: Boolean = false
+
+scala> compose[String, Int, Boolean]("bipp", {x: String => x.length}, {len: Int => if(len == 4) true else false} )
+res10: Boolean = true
+```
+
+* [May Your Data be Coherent](https://www.youtube.com/watch?v=gVXt1RG_yN0)
