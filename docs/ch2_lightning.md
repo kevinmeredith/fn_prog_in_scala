@@ -4,10 +4,28 @@
 
 ## Agenda
 
+* Purity Refresher
 * Basic Elements of Scala/FP
 * Higher-Ordered Functions (HOF) 
 * Tail Recursive Functions
 * Following types to implementations
+
+### Purity Refresher
+
+* Recall from ch1's "Referential transparency and purity" note
+
+> An expression e is referentially transparent if, for all programs p,
+> all occurrences of e in p can be replaced by the result of evaluating 
+> e without affecting the meaning of p.
+
+Example: 
+
+```
+factorial(3) = 3 * factorial(2)
+             = 3 * 2 * factorial(1)
+             = 3 * 2 * 1
+             = 6
+```
 
 ### Basic Elements of Scala 
 
@@ -29,25 +47,8 @@ object MyModule {
 
 source - FP in Scala, ch2
 
-#### Purity?
-
 * `abs` and `formatAbs` are pure
 * `main` is not
-
-* Recall from ch1's "Referential transparency and purity" note
-
-> An expression e is referentially transparent if, for all programs p,
-> all occurrences of e in p can be replaced by the result of evaluating 
-> e without affecting the meaning of p.
-
-Example: 
-
-```
-factorial(3) = 3 * factorial(2)
-             = 3 * 2 * factorial(1)
-             = 3 * 2 * 1
-             = 6
-```
 
 #### Comments
 
