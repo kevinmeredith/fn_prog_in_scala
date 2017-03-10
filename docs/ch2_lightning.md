@@ -10,7 +10,7 @@
 * Tail Recursive Functions
 * Following types to implementations
 
-### Purity Refresher
+### Purity Refresher  
 
 * Recall from ch1's "Referential transparency and purity" note
 
@@ -116,7 +116,7 @@ res3: Int = 0
 ```
 
 * Let's switch to [BigInt](http://www.scala-lang.org/api/2.12.1/scala/math/BigInt.html)
-	* "backed by the Java BigInteger ... classes"
+	* [backed by the Java BigInteger ... classes](http://alvinalexander.com/scala/how-to-use-large-integer-decimal-numbers-in-scala-bigint-bigdecimal)
 	* Stored on heap
   * Can demonstrate the StackOverflowError
 
