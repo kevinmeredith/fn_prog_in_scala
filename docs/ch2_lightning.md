@@ -9,6 +9,7 @@
 * Higher-Ordered Functions (HOF) 
 * Tail Recursive Functions
 * Following types to implementations
+* Misc
 
 ### Purity Refresher  
 
