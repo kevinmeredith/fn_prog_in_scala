@@ -243,4 +243,4 @@ scala> compose[String, Int, Boolean]("bipp", {x: String => x.length}, {len: Int 
 res10: Boolean = true
 ```
 
-* [May Your Data be Coherent](https://www.youtube.com/watch?v=gVXt1RG_yN0)
+* [May Your Data Ever be Coherent](https://www.youtube.com/watch?v=gVXt1RG_yN0)
