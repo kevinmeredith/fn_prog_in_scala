@@ -66,7 +66,7 @@ source - FP in Scala, ch2
    stored in data structures, and passed as arguments to functions" (FP in Scala, ch2)   
 * function that accepts or returns a function (https://en.wikipedia.org/wiki/Higher-order_function)
 
-#### Writing `factorial` Functionally
+### Tail Recursive Functions
 
 ##### Java Implementation
 
