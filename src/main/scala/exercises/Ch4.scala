@@ -51,4 +51,7 @@ object ch4 {
 		case _     => Some( xs.sum / xs.length )
 	}
 
+	def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = 
+		a.flatMap(aa => b.map(bb => f(aa, bb) ))
+
 }
