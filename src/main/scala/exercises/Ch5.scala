@@ -13,6 +13,17 @@ object ch5 {
 			case Cons(h,t) => f(h(), t().foldRight(z)(f))
 			case _ 		   => z
 		}
+		def headOption: Option[A] = foldRight[Option[A]](None){ (elem, acc) =>
+			Some(elem)
+		}
+		def zip[B >: A](other: Stream[B]): Stream[(B, B)] = (this, other) match {
+			case (Empty, 		_) 		     => Empty
+			case (_, 			Empty) 		 => Empty
+			case (Cons(a1, t1), Cons(a2,t2)) => Stream.cons( (a1(), a2()), t1().zip(t2()) )
+		}
+		def startsWith[B >: A](other: Stream[B]): Boolean = this.zip(other).forAll {
+			case (a, b) => a == b
+		}
 	}
 	case object Empty extends Stream[Nothing] {
 		def toList: List[Nothing] 				  			  = Nil
