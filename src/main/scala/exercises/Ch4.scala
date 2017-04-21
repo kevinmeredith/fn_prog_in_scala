@@ -63,4 +63,12 @@ object ch4 {
         }
     }
 
+    def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = 
+    	a.foldRight[Option[List[B]]](Some(Nil)){ (elem, acc) =>
+			for {
+				a <- acc
+				e <- f(elem)
+			} yield e :: a
+		}
+
 }
